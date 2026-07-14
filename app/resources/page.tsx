@@ -15,7 +15,7 @@ export default function ResourcesPage() {
           <h1 className="mt-3 section-title">자료실</h1>
           <p className="mt-4 max-w-2xl leading-relaxed text-slate-600">
             인증별로 정리한 양식·체크리스트·참고 자료 보관함입니다.
-            운영자 전용 비공개 게시판입니다.
+            누구나 열람할 수 있으며, 글 등록은 운영자만 가능합니다.
           </p>
         </div>
       </section>

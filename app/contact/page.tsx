@@ -56,7 +56,8 @@ export default async function ContactPage({
                 문의가 접수되었습니다
               </h2>
               <p className="mt-2 text-slate-600">
-                남겨주신 이메일로 영업일 기준 1~2일 내 회신드리겠습니다.
+                개인적인 블로그이므로 답변이 다소 늦을 수 있는 점 양해
+                부탁드립니다.
               </p>
               <a
                 href="/contact"
@@ -181,7 +182,7 @@ export default async function ContactPage({
               안내
             </h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
-              <li>· 영업일 기준 1~2일 내 회신드립니다.</li>
+              <li>· 개인적인 블로그이므로, 답변이 원활하지 않을 수 있습니다.</li>
               <li>· 남겨주신 정보는 회신 목적 외에 사용하지 않습니다.</li>
             </ul>
           </div>

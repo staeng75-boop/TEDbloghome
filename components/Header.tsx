@@ -10,6 +10,7 @@ const NAV = [
   { href: "/insights", label: "보안 인사이트" },
   { href: "/resources", label: "자료실" },
   { href: "/about", label: "소개" },
+  { href: "/contact", label: "문의" },
 ];
 
 export default function Header() {
@@ -42,12 +43,6 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/contact"
-            className="rounded-full bg-brand px-5 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-brand-deep"
-          >
-            문의
-          </Link>
         </nav>
 
         <button
@@ -89,13 +84,6 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/contact"
-              onClick={() => setOpen(false)}
-              className="mt-3 rounded-full bg-brand py-3 text-center text-[15px] font-semibold text-white"
-            >
-              문의
-            </Link>
           </div>
         </nav>
       )}

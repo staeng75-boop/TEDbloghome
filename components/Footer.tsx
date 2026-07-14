@@ -9,7 +9,7 @@ export default function Footer() {
             TED BLOG <span className="font-light text-mist-200">Security</span>
           </p>
           <p className="mt-3 text-sm leading-relaxed text-slate-400">
-            27년차 정보보호 컨설턴트가
+            약 30년차 정보보호 컨설턴트가
             <br />
             현장의 지식과 경험을 기록하는
             <br />
@@ -51,7 +51,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="container-content flex flex-col items-center justify-between gap-2 py-5 text-xs text-slate-500 sm:flex-row">
           <p>© {new Date().getFullYear()} TED BLOG Security. All rights reserved.</p>
-          <p>정보보호 컨설팅 · 개인정보보호 컨설팅</p>
+          <p>TED BLOG Security</p>
         </div>
       </div>
     </footer>

@@ -86,9 +86,9 @@ export default function AboutPage() {
           <div className="mt-8 grid gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2">
               <p className="text-lg leading-relaxed text-slate-600">
-                안녕하세요, <strong className="text-slate-900">강태훈</strong>
+                안녕하세요, <strong className="text-slate-900">TED</strong>
                 입니다. 네트워크·보안시스템 운영으로 시작해{" "}
-                <strong className="text-slate-900">27년째</strong> 정보보호
+                <strong className="text-slate-900">약 30년째</strong> 정보보호
                 분야에서 일하고 있는 수석 컨설턴트입니다. 공공기관을
                 중심으로 ISMS-P·CSAP·ISO 인증과 기반시설·전자금융 평가를
                 수행하며, 이 블로그에 현장에서 얻은 지식과 경험을
@@ -108,7 +108,7 @@ export default function AboutPage() {
                   <dt className="font-semibold uppercase tracking-wider text-gold">
                     경력
                   </dt>
-                  <dd className="mt-1 text-slate-700">정보보호 분야 27년</dd>
+                  <dd className="mt-1 text-slate-700">정보보호 분야 약 30년</dd>
                 </div>
                 <div>
                   <dt className="font-semibold uppercase tracking-wider text-gold">
@@ -214,16 +214,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="container-content pb-20 text-center">
-        <h2 className="text-2xl font-bold text-slate-900">
-          궁금한 점이 있으신가요?
-        </h2>
-        <Link
-          href="/contact"
-          className="mt-6 inline-block rounded-full bg-brand px-8 py-3.5 font-semibold text-white transition-colors hover:bg-brand-deep"
-        >
-          문의 남기기
-        </Link>
+      <section className="container-content pb-20">
+        <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center">
+          <p className="text-slate-600">
+            궁금한 점이나 다뤄줬으면 하는 주제가 있다면 편하게
+            남겨주세요.
+          </p>
+          <Link
+            href="/contact"
+            className="mt-5 inline-block rounded-full border border-slate-300 bg-white px-7 py-3 text-sm font-medium text-slate-600 transition-colors hover:border-brand hover:text-brand"
+          >
+            문의 남기기
+          </Link>
+        </div>
       </section>
     </div>
   );
