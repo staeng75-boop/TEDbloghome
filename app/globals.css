@@ -1,0 +1,75 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-sans text-slate-800 antialiased;
+  }
+}
+
+@layer components {
+  .container-content {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+  .eyebrow {
+    @apply text-sm font-semibold uppercase tracking-[0.2em] text-gold;
+  }
+  .section-title {
+    @apply text-3xl font-bold leading-tight text-slate-900 sm:text-4xl;
+  }
+  .prose-post {
+    @apply leading-[1.75] text-slate-700;
+  }
+  .prose-post h2 {
+    @apply mb-3 mt-10 text-2xl font-bold text-slate-900;
+  }
+  .prose-post h3 {
+    @apply mb-2 mt-8 text-xl font-bold text-slate-900;
+  }
+  .prose-post p {
+    @apply my-4;
+  }
+  .prose-post ul,
+  .prose-post ol {
+    @apply my-4 list-disc pl-6;
+  }
+  .prose-post ol {
+    @apply list-decimal;
+  }
+  .prose-post li {
+    @apply my-1.5;
+  }
+  .prose-post blockquote {
+    @apply my-6 border-l-4 border-brand bg-mist-50 px-5 py-3 text-slate-600;
+  }
+  .prose-post a {
+    @apply text-brand underline underline-offset-2 hover:text-brand-deep;
+  }
+  .prose-post table {
+    @apply my-6 w-full border-collapse text-sm;
+  }
+  .prose-post th {
+    @apply border border-slate-200 bg-mist-100 px-3 py-2 text-left font-semibold text-slate-900;
+  }
+  .prose-post td {
+    @apply border border-slate-200 px-3 py-2;
+  }
+  .prose-post code {
+    @apply rounded bg-slate-100 px-1.5 py-0.5 text-[0.9em] text-brand-deep;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,159 @@
+
+
+작업순서
+
+1)
+Frontend Design 스킬 설치해줘
+https://github.com/anthropics/skills/tree/main/skills/frontend-design
+
+2)
+npm으로 플로그인 설치해줘
+UI/UX Pro Max 스킬:
+https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+
+3)드리블, 어워드 중 맘에 드는 이미지 캡쳐
+
+4)
+/ui-ux-pro-max 나는 피부과 홈페이지를 제작할꺼야. 청결하고 세련된, 프리미엄 느낌의 홈페이지를 만들고싶어.
+               명확하게 하기위해, 잘 이해가 안되면 질문을 해줘
+
+Next.js + Tail..... (선택)
+
+클린화이트 매디컬(추천)
+
+메인 렌딩 외에 어떤 부가 페이지를 함께 만들고 싶어. 체크할수 있게 보여줘 (프롬프트 질의)
+
+5)
+지금 만들어진 홈페이지는
+관점, 생삭, 위계(배치도), 타이포글래피, 스타일, 색션, 카피라이팅
+이 7가지의 기준 을 두고 10점만점에 몇점인지 체크해봐
+
+6)
+한꺼번에 적용할 개선한 묶음이 나왔다면 보고 적용 부탁해.
+
+7) (홈페이지안에 넣을 얼굴 이미지 제작 > gpt 등 > 음악 넣고 > 영상제작, 이걸 천천히 움직이는 영상으로 생성해줘 )
+16:9 비율로 여성 이미지를 제작해줘. 피부과 홈페이지에 쓸 사진이야.
+20대 예쁜 여성이어야해. 배경은 하늘색 스튜디오 
+
+8)
+히아로 섹션에 영상을 뒤에 추가해줘. 영상은 이거야.. (경로붙여넣기)
+
+> (21st.dev 여기서 효과 찾아서) 10:34
+히어로 섹션에 이효과를 적용해줘
+
+9) (보강)
+(원하는 홈페이지 이미지 캡쳐 후)
+카드가 넘어가는듯학게 자연스럽게 해줘
+
+10)(폴트 교체)
+폰트는 트리텐다드로 변경해줘
+
+11) (ㅁ모바일)
+모바일 최적화를 위해 반응형으로 화면 컴포넌트들이 나오게 해줘
+
+12)깃허브저장해줘. TEDbloghome 으로
+
+13)(배포 )
+vercel + add new
+
+14) (완료)
+hospital-homepage-xi.vercel.app
+
+
+
+
+
+
+
+*********************************************
+*********************************************
+왕초보도 가능한 수백만원짜리 웹사이트 제작 과정 총정리 ㅣ 클로드코드 핵심 디자인 스킬 + 실무팁
+
+https://www.youtube.com/watch?v=RaIjKG_ENIU&list=LL&index=1
+
+이 영상 하나로 기획부터 디자인, 배포까지
+전 과정을 무료로 끝내는 방법을 알려드립니다.
+
+🛠️ 사용 스킬
+
+Frontend Design 스킬 :
+https://github.com/anthropics/skills/tree/main/skills/frontend-design
+https://github.com/anthropics/skills/...
+
+UI/UX Pro Max 스킬:
+https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+
+https://github.com/nextlevelbuilder/u...
+
+🛠️ 사용 도구
+
+21st.dev : 
+https://21st.dev/
+
+Vercel: 
+https://vercel.com 
+
+GitHub: 
+https://github.com 
+
+드리블
+https://dribbble.com/
+
+어워드
+https://www.awwwards.com/
+
+=-====================================
+TEDbloghome작업순서
+
+=-====================================
+1)
+Frontend Design 스킬 설치해줘
+https://github.com/anthropics/skills/tree/main/skills/frontend-design
+
+2)
+npm으로 플로그인 설치해줘
+UI/UX Pro Max 스킬:
+https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+
+3)
+hospital-homepage-xi.vercel.app
+이사이트의 컬러, 폰트, 색상 등 모든 다자인 요소를 참고해줘
+
+4)
+/ui-ux-pro-max 나는 TED의 정보보호 블러그 홈페이지를 제작할꺼야. 청결하고 세련된, 프리미엄 느낌의 홈페이지를 만들고싶어. 나의 정보보호 컨설팅 업무에 필요한 내용으로 메뉴구성을 하고 주로 게시판 형태가 좋겟지.. 검토해봐... 명확하게 하기위해, 잘 이해가 안되면 질문을 해줘
+
+( Next.js + Tail..... (선택) )
+
+
+
+ 메인 렌딩 외에 어떤 부가 페이지를 함께 만들고 싶어. 계획 해줘
+
+5)
+지금 만들어진 홈페이지는
+관점, 색상, 위계(배치도), 타이포글래피, 스타일, 색션, 카피라이팅
+이 7가지의 기준 을 두고 10점만점에 몇점인지 체크해봐
+
+6)
+한꺼번에 적용할 개선한 묶음이 나왔다면 보고 적용 부탁해.
+
+
+히아로 섹션에 이영상을 뒤에 추가해줘. 영상은 이거야.. (첫화면)
+
+
+10)(폴트 교체)
+폰트는 트리텐다드로 변경해줘
+
+11) (모바일)
+모바일 최적화를 위해 반응형으로 화면 컴포넌트들이 나오게 해줘
+
+12)내 깃허브저장해줘. TEDbloghome 제목으로 으로
+
+13)(배포 )
+(vercel + add new)
+외부에서 볼수있게 배포해줘.
+
+14) (완료)
+url : 
+
+
+
