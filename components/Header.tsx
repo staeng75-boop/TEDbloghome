@@ -10,7 +10,6 @@ const NAV = [
   { href: "/insights", label: "보안 인사이트" },
   { href: "/resources", label: "자료실" },
   { href: "/about", label: "소개" },
-  { href: "/contact", label: "문의" },
 ];
 
 export default function Header() {
