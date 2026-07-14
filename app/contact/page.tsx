@@ -68,7 +68,7 @@ export default async function ContactPage({
             </div>
           ) : (
             <form
-              action="https://formsubmit.co/staeng75@gmail.com"
+              action="https://formsubmit.co/cfab0e2e583505c3854deb63d15bcd21"
               method="POST"
               className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-9"
             >

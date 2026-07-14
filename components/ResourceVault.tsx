@@ -129,7 +129,7 @@ export default function ResourceVault({
 
       {writeMode === "open" && (
         <form
-          action="https://formsubmit.co/staeng75@gmail.com"
+          action="https://formsubmit.co/cfab0e2e583505c3854deb63d15bcd21"
           method="POST"
           className="mt-6 rounded-2xl border border-brand/30 bg-mist-50 p-6"
         >
