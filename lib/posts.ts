@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import DOMPurify from "isomorphic-dompurify";
 
 const postsDir = path.join(process.cwd(), "content", "posts");
 
@@ -59,6 +60,6 @@ export function getPost(slug: string): Post | null {
     category: data.category ?? "insight",
     categoryLabel: CATEGORIES[data.category] ?? "보안 인사이트",
     excerpt: data.excerpt ?? "",
-    html: marked.parse(content) as string,
+    html: DOMPurify.sanitize(marked.parse(content) as string),
   };
 }
