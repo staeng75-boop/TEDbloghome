@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPost } from "@/lib/posts";
+import { getPost } from "@/lib/posts";
 
-export function generateStaticParams() {
-  return getAllPosts().map((p) => ({ slug: p.slug }));
-}
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -12,7 +10,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPost(decodeURIComponent(slug));
+  const post = await getPost(decodeURIComponent(slug));
   return { title: post?.title ?? "글" };
 }
 
@@ -22,7 +20,7 @@ export default async function PostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPost(decodeURIComponent(slug));
+  const post = await getPost(decodeURIComponent(slug));
   if (!post) notFound();
 
   const boardHref =

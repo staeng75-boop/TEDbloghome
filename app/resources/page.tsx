@@ -3,9 +3,10 @@ import ResourceVault from "@/components/ResourceVault";
 import { getAllResources, RESOURCE_CATEGORIES } from "@/lib/resources";
 
 export const metadata: Metadata = { title: "자료실" };
+export const revalidate = 60;
 
-export default function ResourcesPage() {
-  const items = getAllResources();
+export default async function ResourcesPage() {
+  const items = await getAllResources();
 
   return (
     <div>

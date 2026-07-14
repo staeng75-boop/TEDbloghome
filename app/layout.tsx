@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | TED BLOG Security",
   },
   description:
-    "27년차 정보보호 컨설턴트의 지식 창구. ISMS-P, CSAP, ISO 27001/27701, 주요정보통신기반시설, 전자금융 평가의 현장 경험과 노하우를 기록합니다.",
+    "약 30년간 정보보호 현장을 지켜온 컨설턴트의 지식 창구. ISMS-P, CSAP, ISO 27001/27701, 주요정보통신기반시설, 전자금융 평가의 현장 경험과 노하우를 기록합니다.",
 };
 
 export default function RootLayout({

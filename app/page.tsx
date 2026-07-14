@@ -53,8 +53,10 @@ const TOPICS = [
   },
 ];
 
-export default function Home() {
-  const recentPosts = getAllPosts().slice(0, 6);
+export const revalidate = 60;
+
+export default async function Home() {
+  const recentPosts = (await getAllPosts()).slice(0, 6);
 
   return (
     <div>
@@ -75,8 +77,8 @@ export default function Home() {
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">
-            약 30년차 정보보호 컨설턴트가 인증 심사와 평가 현장에서 얻은
-            지식과 경험을 기록합니다.
+            약 30년간 정보보호 현장을 지켜온 컨설턴트가 인증 심사와 평가
+            현장에서 얻은 지식과 경험을 기록합니다.
             <br />
             ISMS-P부터 기반시설·전자금융 평가까지, 실무에 바로 쓰이는
             이야기를 담습니다.

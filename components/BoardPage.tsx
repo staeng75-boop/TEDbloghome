@@ -1,16 +1,19 @@
 import Link from "next/link";
 import type { PostMeta } from "@/lib/posts";
+import HiddenWrite from "@/components/HiddenWrite";
 
 export default function BoardPage({
   eyebrow,
   title,
   description,
   posts,
+  category,
 }: {
   eyebrow: string;
   title: string;
   description: string;
   posts: PostMeta[];
+  category: string;
 }) {
   return (
     <div>
@@ -24,11 +27,14 @@ export default function BoardPage({
         </div>
       </section>
       <section className="container-content pb-20">
-        <div className="flex items-center justify-between border-b-2 border-slate-800 pb-3">
-          <p className="text-sm font-semibold text-slate-700">
-            전체 글 <span className="text-brand">{posts.length}</span>
-          </p>
-        </div>
+        <HiddenWrite
+          type="post"
+          count={posts.length}
+          unit=""
+          triggerText="전체 글"
+          categories={{ [category]: title }}
+          defaultCategory={category}
+        />
         {posts.length === 0 ? (
           <div className="rounded-b-2xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
             아직 등록된 글이 없습니다. 곧 첫 글이 올라옵니다.

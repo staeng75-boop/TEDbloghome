@@ -1,10 +1,7 @@
-import fs from "fs";
-import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
-
-const postsDir = path.join(process.cwd(), "content", "posts");
+import { listMarkdownFiles, getMarkdownFile } from "@/lib/github";
 
 export type PostMeta = {
   slug: string;
@@ -23,15 +20,12 @@ export const CATEGORIES: Record<string, string> = {
   insight: "보안 인사이트",
 };
 
-export function getAllPosts(): PostMeta[] {
-  if (!fs.existsSync(postsDir)) return [];
-  return fs
-    .readdirSync(postsDir)
-    .filter((f) => f.endsWith(".md"))
+export async function getAllPosts(): Promise<PostMeta[]> {
+  const files = await listMarkdownFiles("content/posts");
+  return files
     .map((file) => {
-      const slug = file.replace(/\.md$/, "");
-      const raw = fs.readFileSync(path.join(postsDir, file), "utf-8");
-      const { data } = matter(raw);
+      const slug = file.name.replace(/\.md$/, "");
+      const { data } = matter(file.text);
       return {
         slug,
         title: data.title ?? slug,
@@ -44,15 +38,16 @@ export function getAllPosts(): PostMeta[] {
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export function getPostsByCategory(category: string): PostMeta[] {
-  return getAllPosts().filter((p) => p.category === category);
+export async function getPostsByCategory(
+  category: string
+): Promise<PostMeta[]> {
+  return (await getAllPosts()).filter((p) => p.category === category);
 }
 
-export function getPost(slug: string): Post | null {
-  const file = path.join(postsDir, `${slug}.md`);
-  if (!fs.existsSync(file)) return null;
-  const raw = fs.readFileSync(file, "utf-8");
-  const { data, content } = matter(raw);
+export async function getPost(slug: string): Promise<Post | null> {
+  const text = await getMarkdownFile("content/posts", slug);
+  if (text === null) return null;
+  const { data, content } = matter(text);
   return {
     slug,
     title: data.title ?? slug,

@@ -9,9 +9,9 @@ export default function Footer() {
             TED BLOG <span className="font-light text-mist-200">Security</span>
           </p>
           <p className="mt-3 text-sm leading-relaxed text-slate-400">
-            약 30년차 정보보호 컨설턴트가
+            약 30년간 정보보호 현장에서 쌓은
             <br />
-            현장의 지식과 경험을 기록하는
+            지식과 경험을 기록하는
             <br />
             정보보호 지식 창구입니다.
           </p>

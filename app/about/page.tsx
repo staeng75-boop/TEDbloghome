@@ -89,8 +89,8 @@ export default function AboutPage() {
               <p className="text-lg leading-relaxed text-slate-600">
                 안녕하세요, <strong className="text-slate-900">TED</strong>
                 입니다. 네트워크·보안시스템 운영으로 시작해{" "}
-                <strong className="text-slate-900">약 30년째</strong> 정보보호
-                분야에서 일하고 있는 수석 컨설턴트입니다. 공공기관을
+                <strong className="text-slate-900">약 30년간</strong> 정보보호
+                분야에서 일해 온 수석 컨설턴트입니다. 공공기관을
                 중심으로 ISMS-P·CSAP·ISO 인증과 기반시설·전자금융 평가를
                 수행하며, 이 블로그에 현장에서 얻은 지식과 경험을
                 기록합니다.

@@ -1,10 +1,7 @@
-import fs from "fs";
-import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
-
-const resourcesDir = path.join(process.cwd(), "content", "resources");
+import { listMarkdownFiles } from "@/lib/github";
 
 export const RESOURCE_CATEGORIES: Record<string, string> = {
   ismsp: "ISMS-P",
@@ -23,15 +20,12 @@ export type ResourceItem = {
   html: string;
 };
 
-export function getAllResources(): ResourceItem[] {
-  if (!fs.existsSync(resourcesDir)) return [];
-  return fs
-    .readdirSync(resourcesDir)
-    .filter((f) => f.endsWith(".md"))
+export async function getAllResources(): Promise<ResourceItem[]> {
+  const files = await listMarkdownFiles("content/resources");
+  return files
     .map((file) => {
-      const slug = file.replace(/\.md$/, "");
-      const raw = fs.readFileSync(path.join(resourcesDir, file), "utf-8");
-      const { data, content } = matter(raw);
+      const slug = file.name.replace(/\.md$/, "");
+      const { data, content } = matter(file.text);
       return {
         slug,
         title: data.title ?? slug,
