@@ -44,7 +44,7 @@ export default function Footer() {
             <li>ISMS-P · CSAP</li>
             <li>ISO 27001 / 27701</li>
             <li>주요정보통신기반시설 취약점 분석·평가</li>
-            <li>전자금융기반시설 안전성 평가</li>
+            <li>전자금융기반시설 보안 취약점 평가</li>
           </ul>
         </div>
       </div>

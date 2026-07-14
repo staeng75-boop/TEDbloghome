@@ -28,9 +28,21 @@ export default function HiddenWrite({
     defaultCategory ?? Object.keys(categories)[0]
   );
   const [content, setContent] = useState("");
+  const [image, setImage] = useState<File | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [doneMsg, setDoneMsg] = useState("");
+
+  const fileToBase64 = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        resolve(result.slice(result.indexOf(",") + 1));
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
 
   const tryAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,10 +71,19 @@ export default function HiddenWrite({
     setError("");
     setBusy(true);
     try {
+      const imageBase64 = image ? await fileToBase64(image) : undefined;
       const res = await fetch("/api/write", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password, type, title, category, content }),
+        body: JSON.stringify({
+          password,
+          type,
+          title,
+          category,
+          content,
+          imageBase64,
+          imageName: image?.name,
+        }),
       });
       const data = await res.json();
       if (res.ok) {
@@ -70,6 +91,7 @@ export default function HiddenWrite({
         setMode("done");
         setTitle("");
         setContent("");
+        setImage(null);
       } else {
         setError(data.error ?? "저장에 실패했습니다.");
       }
@@ -206,6 +228,26 @@ export default function HiddenWrite({
               onChange={(e) => setContent(e.target.value)}
               className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
             />
+          </div>
+          <div className="mt-4">
+            <label
+              htmlFor={`hw-image-${type}`}
+              className="block text-xs font-semibold text-slate-700"
+            >
+              이미지 첨부 (선택, 최대 4MB)
+            </label>
+            <input
+              id={`hw-image-${type}`}
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files?.[0] ?? null)}
+              className="mt-1.5 w-full text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-mist-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-deep hover:file:bg-mist-200"
+            />
+            {image && (
+              <p className="mt-1.5 text-xs text-slate-500">
+                선택됨: {image.name} ({(image.size / 1024 / 1024).toFixed(2)}MB)
+              </p>
+            )}
           </div>
           {error && (
             <p role="alert" className="mt-3 text-sm text-red-600">

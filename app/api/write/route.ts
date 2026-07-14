@@ -21,6 +21,10 @@ function kstDate(): string {
   return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 }
 
+function safeTitleFor(title: string): string {
+  return title.trim().replace(/"/g, "'");
+}
+
 export async function POST(req: Request) {
   let body: {
     password?: string;
@@ -28,6 +32,8 @@ export async function POST(req: Request) {
     title?: string;
     category?: string;
     content?: string;
+    imageBase64?: string;
+    imageName?: string;
   };
   try {
     body = await req.json();
@@ -35,7 +41,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "잘못된 요청입니다." }, { status: 400 });
   }
 
-  const { password, type, title, category, content } = body;
+  const { password, type, title, category, content, imageBase64, imageName } =
+    body;
   if (
     !password ||
     createHash("sha256").update(password).digest("hex") !== WRITE_HASH
@@ -71,16 +78,62 @@ export async function POST(req: Request) {
   const dir = isPost ? "content/posts" : "content/resources";
   const slug = `${isPost ? "p" : "r"}-${date}-${stamp}`;
 
-  const safeTitle = title.trim().replace(/"/g, "'");
-  const excerpt = content
-    .trim()
+  let bodyContent = content.trim();
+
+  if (imageBase64 && imageName) {
+    const ext = imageName.split(".").pop()?.toLowerCase() ?? "";
+    const allowedExt = new Set(["jpg", "jpeg", "png", "gif", "webp"]);
+    if (!allowedExt.has(ext)) {
+      return NextResponse.json(
+        { error: "지원하지 않는 이미지 형식입니다." },
+        { status: 400 }
+      );
+    }
+    // base64 문자열 길이로 대략적 용량 검사 (4MB 제한)
+    if (imageBase64.length > 5_600_000) {
+      return NextResponse.json(
+        { error: "이미지 용량은 4MB 이하만 가능합니다." },
+        { status: 400 }
+      );
+    }
+
+    const imagePath = `${dir}/images/${slug}.${ext}`;
+    const imgRes = await fetch(
+      `https://api.github.com/repos/${REPO}/contents/${imagePath}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github+json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: `이미지 첨부: ${safeTitleFor(title)}`,
+          content: imageBase64,
+        }),
+      }
+    );
+    if (!imgRes.ok) {
+      const detail = await imgRes.text();
+      console.error("GitHub image commit failed:", imgRes.status, detail.slice(0, 300));
+      return NextResponse.json(
+        { error: "이미지 저장에 실패했습니다." },
+        { status: 502 }
+      );
+    }
+    const imageUrl = `https://raw.githubusercontent.com/${REPO}/main/${imagePath}`;
+    bodyContent = `![](${imageUrl})\n\n${bodyContent}`;
+  }
+
+  const safeTitle = safeTitleFor(title);
+  const excerpt = bodyContent
     .replace(/[#>*`\[\]|-]/g, " ")
     .replace(/\s+/g, " ")
     .slice(0, 100);
 
   const md = isPost
-    ? `---\ntitle: "${safeTitle}"\ndate: "${date}"\ncategory: "${category}"\nexcerpt: "${excerpt}"\n---\n\n${content.trim()}\n`
-    : `---\ntitle: "${safeTitle}"\ndate: "${date}"\ncategory: "${category}"\n---\n\n${content.trim()}\n`;
+    ? `---\ntitle: "${safeTitle}"\ndate: "${date}"\ncategory: "${category}"\nexcerpt: "${excerpt}"\n---\n\n${bodyContent}\n`
+    : `---\ntitle: "${safeTitle}"\ndate: "${date}"\ncategory: "${category}"\n---\n\n${bodyContent}\n`;
 
   const res = await fetch(
     `https://api.github.com/repos/${REPO}/contents/${dir}/${slug}.md`,
