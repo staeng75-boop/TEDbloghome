@@ -50,7 +50,9 @@ hospital-homepage-xi.vercel.app
 외부에서 볼수있게 배포해줘.
 
 14) (완료)
-url : 
+url : https://tedbloghome.vercel.app
+github : https://github.com/staeng75-boop/TEDbloghome
+(2026-07-14 배포 완료, 배포 전 취약점 진단·조치 포함)
 
 
 
