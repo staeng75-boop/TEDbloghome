@@ -99,7 +99,7 @@ export default function Home() {
           <dl className="mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
             {[
               { value: "약 30년", label: "정보보호 분야 경력" },
-              { value: "8종", label: "보유 자격 (CISSP·ISO 등)" },
+              { value: "9종", label: "보유 자격 (CISSP·ISO 등)" },
               { value: "40+", label: "수행 프로젝트" },
             ].map((s) => (
               <div key={s.label} className="border-l-2 border-gold/70 pl-4">

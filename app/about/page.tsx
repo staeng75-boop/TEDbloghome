@@ -9,6 +9,7 @@ const CERTS = [
   "ISO 27701",
   "ISO 27017",
   "ISO 27018",
+  "ISO 42001",
   "CPPG",
   "CCNA",
   "정보처리기사",

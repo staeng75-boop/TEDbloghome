@@ -75,14 +75,6 @@ export default function ResourceVault({
             );
           })}
         </div>
-        {writeMode === "closed" && (
-          <button
-            onClick={() => setWriteMode("auth")}
-            className="rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-medium text-slate-600 transition-colors hover:border-brand hover:text-brand"
-          >
-            ✎ 글쓰기
-          </button>
-        )}
       </div>
 
       {writeMode === "auth" && (
@@ -218,7 +210,15 @@ export default function ResourceVault({
 
       <div className="mt-6 border-b-2 border-slate-800 pb-3">
         <p className="text-sm font-semibold text-slate-700">
-          자료 <span className="text-brand">{visible.length}</span>건
+          <button
+            type="button"
+            onClick={() => writeMode === "closed" && setWriteMode("auth")}
+            className="cursor-text font-semibold text-slate-700"
+            aria-label="자료"
+          >
+            자료
+          </button>{" "}
+          <span className="text-brand">{visible.length}</span>건
         </p>
       </div>
 
