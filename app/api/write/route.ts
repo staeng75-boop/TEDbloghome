@@ -32,8 +32,8 @@ export async function POST(req: Request) {
     title?: string;
     category?: string;
     content?: string;
-    imageBase64?: string;
-    imageName?: string;
+    fileBase64?: string;
+    fileName?: string;
   };
   try {
     body = await req.json();
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "잘못된 요청입니다." }, { status: 400 });
   }
 
-  const { password, type, title, category, content, imageBase64, imageName } =
+  const { password, type, title, category, content, fileBase64, fileName } =
     body;
   if (
     !password ||
@@ -80,26 +80,41 @@ export async function POST(req: Request) {
 
   let bodyContent = content.trim();
 
-  if (imageBase64 && imageName) {
-    const ext = imageName.split(".").pop()?.toLowerCase() ?? "";
-    const allowedExt = new Set(["jpg", "jpeg", "png", "gif", "webp"]);
-    if (!allowedExt.has(ext)) {
+  const IMAGE_EXT = new Set(["jpg", "jpeg", "png", "gif", "webp"]);
+  const DOC_EXT = new Set([
+    "pdf",
+    "hwp",
+    "hwpx",
+    "doc",
+    "docx",
+    "xls",
+    "xlsx",
+    "ppt",
+    "pptx",
+    "zip",
+    "txt",
+  ]);
+
+  if (fileBase64 && fileName) {
+    const ext = fileName.split(".").pop()?.toLowerCase() ?? "";
+    if (!IMAGE_EXT.has(ext) && !DOC_EXT.has(ext)) {
       return NextResponse.json(
-        { error: "지원하지 않는 이미지 형식입니다." },
+        { error: "지원하지 않는 파일 형식입니다." },
         { status: 400 }
       );
     }
     // base64 문자열 길이로 대략적 용량 검사 (4MB 제한)
-    if (imageBase64.length > 5_600_000) {
+    if (fileBase64.length > 5_600_000) {
       return NextResponse.json(
-        { error: "이미지 용량은 4MB 이하만 가능합니다." },
+        { error: "파일 용량은 4MB 이하만 가능합니다." },
         { status: 400 }
       );
     }
 
-    const imagePath = `${dir}/images/${slug}.${ext}`;
-    const imgRes = await fetch(
-      `https://api.github.com/repos/${REPO}/contents/${imagePath}`,
+    const safeFileName = fileName.replace(/[^\w.\-가-힣]/g, "_");
+    const filePath = `${dir}/files/${slug}-${safeFileName}`;
+    const fileRes = await fetch(
+      `https://api.github.com/repos/${REPO}/contents/${filePath}`,
       {
         method: "PUT",
         headers: {
@@ -108,21 +123,23 @@ export async function POST(req: Request) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          message: `이미지 첨부: ${safeTitleFor(title)}`,
-          content: imageBase64,
+          message: `파일 첨부: ${safeTitleFor(title)}`,
+          content: fileBase64,
         }),
       }
     );
-    if (!imgRes.ok) {
-      const detail = await imgRes.text();
-      console.error("GitHub image commit failed:", imgRes.status, detail.slice(0, 300));
+    if (!fileRes.ok) {
+      const detail = await fileRes.text();
+      console.error("GitHub file commit failed:", fileRes.status, detail.slice(0, 300));
       return NextResponse.json(
-        { error: "이미지 저장에 실패했습니다." },
+        { error: "파일 저장에 실패했습니다." },
         { status: 502 }
       );
     }
-    const imageUrl = `https://raw.githubusercontent.com/${REPO}/main/${imagePath}`;
-    bodyContent = `![](${imageUrl})\n\n${bodyContent}`;
+    const fileUrl = `https://raw.githubusercontent.com/${REPO}/main/${filePath}`;
+    bodyContent = IMAGE_EXT.has(ext)
+      ? `![](${fileUrl})\n\n${bodyContent}`
+      : `📎 [${fileName} 다운로드](${fileUrl})\n\n${bodyContent}`;
   }
 
   const safeTitle = safeTitleFor(title);

@@ -28,7 +28,7 @@ export default function HiddenWrite({
     defaultCategory ?? Object.keys(categories)[0]
   );
   const [content, setContent] = useState("");
-  const [image, setImage] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [doneMsg, setDoneMsg] = useState("");
@@ -71,7 +71,7 @@ export default function HiddenWrite({
     setError("");
     setBusy(true);
     try {
-      const imageBase64 = image ? await fileToBase64(image) : undefined;
+      const fileBase64 = file ? await fileToBase64(file) : undefined;
       const res = await fetch("/api/write", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -81,8 +81,8 @@ export default function HiddenWrite({
           title,
           category,
           content,
-          imageBase64,
-          imageName: image?.name,
+          fileBase64,
+          fileName: file?.name,
         }),
       });
       const data = await res.json();
@@ -91,7 +91,7 @@ export default function HiddenWrite({
         setMode("done");
         setTitle("");
         setContent("");
-        setImage(null);
+        setFile(null);
       } else {
         setError(data.error ?? "저장에 실패했습니다.");
       }
@@ -231,21 +231,26 @@ export default function HiddenWrite({
           </div>
           <div className="mt-4">
             <label
-              htmlFor={`hw-image-${type}`}
+              htmlFor={`hw-file-${type}`}
               className="block text-xs font-semibold text-slate-700"
             >
-              이미지 첨부 (선택, 최대 4MB)
+              파일 첨부 (선택, 최대 4MB)
             </label>
+            <p className="mt-1 text-xs text-slate-500">
+              이미지는 본문에 바로 표시되고, 문서·압축 파일은 다운로드
+              링크로 첨부됩니다. (이미지, PDF, HWP/HWPX, DOC/DOCX,
+              XLS/XLSX, PPT/PPTX, ZIP, TXT)
+            </p>
             <input
-              id={`hw-image-${type}`}
+              id={`hw-file-${type}`}
               type="file"
-              accept="image/*"
-              onChange={(e) => setImage(e.target.files?.[0] ?? null)}
+              accept="image/*,.pdf,.hwp,.hwpx,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.txt"
+              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
               className="mt-1.5 w-full text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-mist-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-deep hover:file:bg-mist-200"
             />
-            {image && (
+            {file && (
               <p className="mt-1.5 text-xs text-slate-500">
-                선택됨: {image.name} ({(image.size / 1024 / 1024).toFixed(2)}MB)
+                선택됨: {file.name} ({(file.size / 1024 / 1024).toFixed(2)}MB)
               </p>
             )}
           </div>
