@@ -21,7 +21,7 @@ export default function Header() {
       <div className="container-content flex h-16 items-center justify-between">
         <Link href="/" className="flex items-baseline gap-1.5">
           <span className="text-xl font-extrabold tracking-tight text-brand-navy">
-            TED
+            TED BLOG
           </span>
           <span className="text-xl font-light tracking-tight text-brand">
             Security
@@ -46,7 +46,7 @@ export default function Header() {
             href="/contact"
             className="rounded-full bg-brand px-5 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-brand-deep"
           >
-            상담 문의
+            문의
           </Link>
         </nav>
 
@@ -94,7 +94,7 @@ export default function Header() {
               onClick={() => setOpen(false)}
               className="mt-3 rounded-full bg-brand py-3 text-center text-[15px] font-semibold text-white"
             >
-              상담 문의
+              문의
             </Link>
           </div>
         </nav>

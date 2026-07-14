@@ -5,11 +5,11 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "TED Security — 정보보호·개인정보보호 전문 컨설팅",
-    template: "%s | TED Security",
+    default: "TED BLOG Security — 정보보호 지식 창구",
+    template: "%s | TED BLOG Security",
   },
   description:
-    "ISMS-P, CSAP, ISO 27001/27701, 주요정보통신기반시설, 전자금융기반시설 평가. 공공기관과 함께 신뢰할 수 있는 관리체계를 만듭니다.",
+    "27년차 정보보호 컨설턴트의 지식 창구. ISMS-P, CSAP, ISO 27001/27701, 주요정보통신기반시설, 전자금융 평가의 현장 경험과 노하우를 기록합니다.",
 };
 
 export default function RootLayout({

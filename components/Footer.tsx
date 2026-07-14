@@ -6,14 +6,14 @@ export default function Footer() {
       <div className="container-content grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="text-lg font-extrabold text-white">
-            TED <span className="font-light text-mist-200">Security</span>
+            TED BLOG <span className="font-light text-mist-200">Security</span>
           </p>
           <p className="mt-3 text-sm leading-relaxed text-slate-400">
-            정보보호·개인정보보호 전문 컨설팅.
+            27년차 정보보호 컨설턴트가
             <br />
-            공공기관과 함께 신뢰할 수 있는
+            현장의 지식과 경험을 기록하는
             <br />
-            관리체계를 만듭니다.
+            정보보호 지식 창구입니다.
           </p>
         </div>
         <div>
@@ -50,7 +50,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/10">
         <div className="container-content flex flex-col items-center justify-between gap-2 py-5 text-xs text-slate-500 sm:flex-row">
-          <p>© {new Date().getFullYear()} TED Security. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} TED BLOG Security. All rights reserved.</p>
           <p>정보보호 컨설팅 · 개인정보보호 컨설팅</p>
         </div>
       </div>

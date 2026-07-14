@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { getAllPosts } from "@/lib/posts";
-import PostCard from "@/components/PostCard";
+import { getAllPosts, CATEGORIES } from "@/lib/posts";
 import NodeNetwork from "@/components/NodeNetwork";
 
-const SERVICES = [
+const TOPICS = [
   {
-    title: "ISMS-P 인증",
-    desc: "정보보호 및 개인정보보호 관리체계 구축부터 인증 취득·사후관리까지 전 과정을 함께합니다.",
+    title: "인증·평가",
+    desc: "ISMS-P, CSAP, ISO 27001/27701 인증 준비와 심사 대응 이야기",
     href: "/certifications",
     icon: (
       <path
@@ -17,20 +16,8 @@ const SERVICES = [
     ),
   },
   {
-    title: "CSAP 클라우드 보안인증",
-    desc: "공공기관 클라우드 서비스 도입에 필요한 CSAP 평가 대응 체계를 설계하고 준비합니다.",
-    href: "/certifications",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"
-      />
-    ),
-  },
-  {
-    title: "주요정보통신기반시설",
-    desc: "기반시설 취약점 분석·평가와 보호대책 수립으로 국가 핵심 인프라를 지킵니다.",
+    title: "기반시설·전자금융",
+    desc: "주요정보통신기반시설·전자금융기반시설 취약점 분석·평가 노하우",
     href: "/infrastructure",
     icon: (
       <path
@@ -41,27 +28,33 @@ const SERVICES = [
     ),
   },
   {
-    title: "전자금융·ISO 인증",
-    desc: "전자금융기반시설 안전성 평가, ISO 27001/27701 등 국제 표준 인증을 지원합니다.",
-    href: "/infrastructure",
+    title: "보안 인사이트",
+    desc: "제도 변화, 보안 동향, 현장에서 느끼는 이슈에 대한 생각",
+    href: "/insights",
     icon: (
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+      />
+    ),
+  },
+  {
+    title: "자료실",
+    desc: "인증별로 정리한 양식·체크리스트·가이드 보관함",
+    href: "/resources",
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
       />
     ),
   },
 ];
 
-const STATS = [
-  { value: "20년+", label: "정보보호 컨설팅 경력" },
-  { value: "공공기관", label: "중심의 수행 경험" },
-  { value: "원스톱", label: "구축부터 인증까지" },
-];
-
 export default function Home() {
-  const recentPosts = getAllPosts().slice(0, 3);
+  const recentPosts = getAllPosts().slice(0, 6);
 
   return (
     <div>
@@ -73,40 +66,41 @@ export default function Home() {
           className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand/20 blur-[64px]"
         />
         <div className="container-content relative py-24 sm:py-32">
-          <p className="eyebrow">Information Security Consulting</p>
+          <p className="eyebrow">TED Blog — Information Security</p>
           <h1 className="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.2] tracking-tight text-white sm:text-5xl sm:leading-[1.15]">
-            증명할 수 있는 보안,
+            현장에서 쓴
             <br />
             <span className="bg-gradient-to-r from-[#6db9e8] to-[#a8d4f0] bg-clip-text text-transparent">
-              신뢰할 수 있는 관리체계
+              정보보호 이야기
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">
-            ISMS-P·CSAP·ISO 인증부터 기반시설·전자금융 평가까지.
-            공공기관이 요구하는 수준의 정보보호 체계를 처음부터 끝까지
-            함께 만듭니다.
+            27년차 정보보호 컨설턴트가 인증 심사와 평가 현장에서 얻은
+            지식과 경험을 기록합니다. ISMS-P부터 기반시설·전자금융
+            평가까지, 실무에 바로 쓰이는 이야기를 담습니다.
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
-              href="/contact"
+              href="/insights"
               className="rounded-full bg-brand px-7 py-3.5 font-semibold text-white transition-colors hover:bg-brand-deep"
             >
-              상담 문의하기
+              최신 글 읽기
             </Link>
             <Link
-              href="/insights"
+              href="/about"
               className="rounded-full border border-white/25 bg-white/5 px-7 py-3.5 font-semibold text-white backdrop-blur transition-colors hover:border-white/60"
             >
-              보안 인사이트 보기
+              블로그 주인 소개
             </Link>
           </div>
 
           <dl className="mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
-            {STATS.map((s) => (
-              <div
-                key={s.label}
-                className="border-l-2 border-gold/70 pl-4"
-              >
+            {[
+              { value: "27년", label: "정보보호 분야 경력" },
+              { value: "8종", label: "보유 자격 (CISSP·ISO 등)" },
+              { value: "40+", label: "수행 프로젝트" },
+            ].map((s) => (
+              <div key={s.label} className="border-l-2 border-gold/70 pl-4">
                 <dt className="text-sm text-slate-400">{s.label}</dt>
                 <dd className="mt-1 text-2xl font-bold text-white">
                   {s.value}
@@ -117,19 +111,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Topics */}
       <section className="container-content py-20 sm:py-24">
-        <p className="eyebrow">Services</p>
-        <h2 className="mt-3 section-title">전문 컨설팅 분야</h2>
+        <p className="eyebrow">Boards</p>
+        <h2 className="mt-3 section-title">게시판</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-slate-600">
-          관리적·물리적 보안을 중심으로, 인증 심사와 평가 현장에서 쌓은
-          경험을 바탕으로 실무에 바로 적용되는 컨설팅을 제공합니다.
+          주제별로 글을 나누어 담습니다. 관심 있는 게시판부터
+          둘러보세요.
         </p>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((s) => (
+          {TOPICS.map((t) => (
             <Link
-              key={s.title}
-              href={s.href}
+              key={t.title}
+              href={t.href}
               className="group rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-lg hover:shadow-brand/5"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-mist-100 text-brand transition-colors group-hover:bg-brand group-hover:text-white">
@@ -140,66 +134,27 @@ export default function Home() {
                   strokeWidth={1.5}
                   viewBox="0 0 24 24"
                 >
-                  {s.icon}
+                  {t.icon}
                 </svg>
               </div>
               <h3 className="mt-5 text-lg font-bold text-slate-900">
-                {s.title}
+                {t.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-500">
-                {s.desc}
+                {t.desc}
               </p>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Process */}
-      <section className="border-y border-slate-100 bg-white">
-        <div className="container-content py-16 sm:py-20">
-          <div className="grid gap-10 lg:grid-cols-4 lg:gap-8">
-            <div>
-              <p className="eyebrow">Process</p>
-              <h2 className="mt-3 text-2xl font-bold text-slate-900">
-                일하는 방식
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-slate-500">
-                문서만 갖추는 보안이 아니라, 실제로 운영되고 증명되는
-                관리체계를 만듭니다.
-              </p>
-            </div>
-            {[
-              {
-                step: "진단",
-                desc: "현재 수준을 인증·평가 기준에 비추어 정확히 진단하고, 격차를 우선순위와 함께 제시합니다.",
-              },
-              {
-                step: "구축",
-                desc: "조직의 규모와 현실에 맞는 정책·지침·증적 체계를 함께 만듭니다. 과한 문서 작업은 지양합니다.",
-              },
-              {
-                step: "증명",
-                desc: "심사·평가 현장에서 통하는 답변과 증적으로 결과를 만들어냅니다.",
-              },
-            ].map((p) => (
-              <div key={p.step} className="border-t-2 border-gold/60 pt-5">
-                <h3 className="text-lg font-bold text-brand-navy">{p.step}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  {p.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Recent posts */}
+      {/* Recent posts — blog list style */}
       <section className="bg-mist-50">
         <div className="container-content py-20 sm:py-24">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="eyebrow">Insights</p>
-              <h2 className="mt-3 section-title">최신 보안 인사이트</h2>
+              <p className="eyebrow">Recent</p>
+              <h2 className="mt-3 section-title">최신 글</h2>
             </div>
             <Link
               href="/insights"
@@ -208,30 +163,45 @@ export default function Home() {
               전체 글 보기 →
             </Link>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-10 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
             {recentPosts.map((post) => (
-              <PostCard key={post.slug} post={post} />
+              <li key={post.slug}>
+                <Link
+                  href={`/posts/${post.slug}`}
+                  className="group flex flex-col gap-1.5 px-6 py-5 transition-colors hover:bg-mist-50 sm:flex-row sm:items-center sm:gap-4"
+                >
+                  <span className="w-32 shrink-0 text-xs font-semibold text-brand-deep">
+                    [{CATEGORIES[post.category] ?? post.categoryLabel}]
+                  </span>
+                  <span className="flex-1 font-medium text-slate-800 group-hover:text-brand">
+                    {post.title}
+                  </span>
+                  <time className="shrink-0 text-sm text-slate-400">
+                    {post.date}
+                  </time>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Contact strip */}
       <section className="bg-brand-navy">
-        <div className="container-content flex flex-col items-center py-20 text-center sm:py-24">
+        <div className="container-content flex flex-col items-center py-16 text-center sm:py-20">
           <p className="eyebrow">Contact</p>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-            인증 준비, 어디서부터 시작할지 막막하신가요?
+          <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
+            글을 읽다 궁금한 점이 생기셨나요?
           </h2>
           <p className="mt-4 max-w-xl leading-relaxed text-slate-300">
-            현재 상황을 알려주시면 필요한 범위와 일정, 준비 방법을
-            구체적으로 안내해 드립니다.
+            인증·평가 준비에 관한 질문이나 다뤄줬으면 하는 주제가 있다면
+            편하게 남겨주세요.
           </p>
           <Link
             href="/contact"
             className="mt-8 rounded-full bg-gold px-8 py-3.5 font-semibold text-brand-navy transition-colors hover:bg-[#d4bc90]"
           >
-            무료 상담 문의
+            문의 남기기
           </Link>
         </div>
       </section>
