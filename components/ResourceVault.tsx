@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { ResourceItem } from "@/lib/resources";
 import HiddenWrite from "@/components/HiddenWrite";
+import DeleteButton from "@/components/DeleteButton";
 
 export default function ResourceVault({
   categories,
@@ -12,6 +13,7 @@ export default function ResourceVault({
   items: ResourceItem[];
 }) {
   const [activeTab, setActiveTab] = useState<string>("all");
+  const [adminPassword, setAdminPassword] = useState("");
 
   const tabs = [["all", "전체"], ...Object.entries(categories)] as [
     string,
@@ -54,6 +56,7 @@ export default function ResourceVault({
           triggerText="자료"
           categories={categories}
           defaultCategory={activeTab === "all" ? undefined : activeTab}
+          onAuth={setAdminPassword}
         />
       </div>
 
@@ -76,6 +79,13 @@ export default function ResourceVault({
                   <time className="shrink-0 text-sm text-slate-400">
                     {it.date}
                   </time>
+                  {adminPassword && (
+                    <DeleteButton
+                      slug={it.slug}
+                      title={it.title}
+                      password={adminPassword}
+                    />
+                  )}
                 </summary>
                 <div
                   className="prose-post border-l-2 border-mist-200 px-5 pb-6"

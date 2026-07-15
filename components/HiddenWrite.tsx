@@ -11,6 +11,7 @@ export default function HiddenWrite({
   triggerText,
   categories,
   defaultCategory,
+  onAuth,
 }: {
   type: "post" | "resource";
   count: number;
@@ -18,6 +19,7 @@ export default function HiddenWrite({
   triggerText: string;
   categories: Record<string, string>;
   defaultCategory?: string;
+  onAuth?: (password: string) => void;
 }) {
   const [mode, setMode] = useState<"closed" | "auth" | "open" | "done">(
     "closed"
@@ -58,6 +60,7 @@ export default function HiddenWrite({
         setError("비밀번호가 일치하지 않습니다.");
       } else {
         setMode("open");
+        onAuth?.(password);
       }
     } catch {
       setError("확인 중 오류가 발생했습니다.");
@@ -106,6 +109,7 @@ export default function HiddenWrite({
     setMode("closed");
     setPassword("");
     setError("");
+    onAuth?.("");
   };
 
   return (

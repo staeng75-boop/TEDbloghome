@@ -1,6 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import type { PostMeta } from "@/lib/posts";
 import HiddenWrite from "@/components/HiddenWrite";
+import DeleteButton from "@/components/DeleteButton";
 
 export default function BoardPage({
   eyebrow,
@@ -15,6 +19,8 @@ export default function BoardPage({
   posts: PostMeta[];
   category: string;
 }) {
+  const [adminPassword, setAdminPassword] = useState("");
+
   return (
     <div>
       <section className="bg-gradient-to-b from-mist-100 to-white">
@@ -34,6 +40,7 @@ export default function BoardPage({
           triggerText="전체 글"
           categories={{ [category]: title }}
           defaultCategory={category}
+          onAuth={setAdminPassword}
         />
         {posts.length === 0 ? (
           <div className="rounded-b-2xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
@@ -42,10 +49,10 @@ export default function BoardPage({
         ) : (
           <ul className="divide-y divide-slate-100">
             {posts.map((post, i) => (
-              <li key={post.slug}>
+              <li key={post.slug} className="flex items-center gap-2">
                 <Link
                   href={`/posts/${post.slug}`}
-                  className="group flex flex-col gap-1 px-2 py-4 transition-colors hover:bg-mist-50 sm:flex-row sm:items-center sm:gap-4"
+                  className="group flex min-w-0 flex-1 flex-col gap-1 px-2 py-4 transition-colors hover:bg-mist-50 sm:flex-row sm:items-center sm:gap-4"
                 >
                   <span className="hidden w-10 shrink-0 text-center text-sm text-slate-400 sm:block">
                     {posts.length - i}
@@ -60,6 +67,13 @@ export default function BoardPage({
                     {post.date}
                   </time>
                 </Link>
+                {adminPassword && (
+                  <DeleteButton
+                    slug={post.slug}
+                    title={post.title}
+                    password={adminPassword}
+                  />
+                )}
               </li>
             ))}
           </ul>
