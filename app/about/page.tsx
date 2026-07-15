@@ -41,8 +41,8 @@ const CAREER_HIGHLIGHTS = [
   },
 ];
 
-const CLIENTS: { name: string; sector: string }[] = [
-  { name: "건강보험심사평가원", sector: "공공" },
+const CLIENTS: { name: string; sector: string; logo?: string }[] = [
+  { name: "건강보험심사평가원", sector: "공공", logo: "/clients/hira-symbol.png" },
   { name: "국가보훈처", sector: "공공" },
   { name: "경기도 파주시", sector: "공공" },
   { name: "대한체육회", sector: "공공" },
@@ -197,13 +197,24 @@ export default function AboutPage() {
               key={c.name}
               className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 transition-colors hover:border-brand/40"
             >
-              <span
-                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
-                  SECTOR_COLOR[c.sector] ?? "bg-mist-100 text-brand-deep"
-                }`}
-              >
-                {c.name.charAt(0)}
-              </span>
+              {c.logo ? (
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-slate-100 bg-white">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={c.logo}
+                    alt={`${c.name} 로고`}
+                    className="h-full w-full object-contain p-0.5"
+                  />
+                </span>
+              ) : (
+                <span
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
+                    SECTOR_COLOR[c.sector] ?? "bg-mist-100 text-brand-deep"
+                  }`}
+                >
+                  {c.name.charAt(0)}
+                </span>
+              )}
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-slate-800">
                   {c.name}
