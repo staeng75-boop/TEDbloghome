@@ -26,6 +26,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  serverExternalPackages: ["marked", "isomorphic-dompurify"],
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
