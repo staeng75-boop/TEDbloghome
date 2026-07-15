@@ -18,10 +18,12 @@ function headers(): HeadersInit {
 
 export type RawFile = { name: string; text: string };
 
+const CONTENT_TAG = "github-content";
+
 export async function listMarkdownFiles(dir: string): Promise<RawFile[]> {
   const res = await fetch(
     `https://api.github.com/repos/${REPO}/contents/${dir}`,
-    { headers: headers(), next: { revalidate: REVALIDATE } }
+    { headers: headers(), next: { revalidate: REVALIDATE, tags: [CONTENT_TAG] } }
   );
   if (!res.ok) return [];
   const entries = (await res.json()) as {
@@ -32,7 +34,7 @@ export async function listMarkdownFiles(dir: string): Promise<RawFile[]> {
   return Promise.all(
     mdFiles.map(async (e) => {
       const r = await fetch(e.download_url, {
-        next: { revalidate: REVALIDATE },
+        next: { revalidate: REVALIDATE, tags: [CONTENT_TAG] },
       });
       return { name: e.name, text: r.ok ? await r.text() : "" };
     })
@@ -45,7 +47,7 @@ export async function getMarkdownFile(
 ): Promise<string | null> {
   const res = await fetch(
     `https://raw.githubusercontent.com/${REPO}/main/${dir}/${encodeURIComponent(slug)}.md`,
-    { next: { revalidate: REVALIDATE } }
+    { next: { revalidate: REVALIDATE, tags: [CONTENT_TAG] } }
   );
   return res.ok ? res.text() : null;
 }

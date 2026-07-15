@@ -1,5 +1,6 @@
 import { createHash } from "crypto";
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 
 // 글쓰기 비밀번호의 SHA-256 해시 (ResourceVault.tsx의 WRITE_HASH와 동일)
 const WRITE_HASH =
@@ -177,13 +178,10 @@ export async function POST(req: Request) {
     );
   }
 
-  const hook = process.env.DEPLOY_HOOK_URL;
-  if (hook) {
-    fetch(hook, { method: "POST" }).catch(() => {});
-  }
+  revalidateTag("github-content");
 
   return NextResponse.json({
     ok: true,
-    message: "저장되었습니다. 1~2분 후 사이트에 반영됩니다.",
+    message: "저장되었습니다. 사이트에 바로 반영됩니다.",
   });
 }
