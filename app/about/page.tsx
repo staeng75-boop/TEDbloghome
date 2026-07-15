@@ -45,25 +45,25 @@ const CLIENTS: { name: string; sector: string; logo?: string }[] = [
   { name: "건강보험심사평가원", sector: "공공", logo: "/clients/hira-symbol.png" },
   { name: "국가보훈처", sector: "공공" },
   { name: "경기도 파주시", sector: "공공" },
-  { name: "대한체육회", sector: "공공" },
+  { name: "대한체육회", sector: "공공", logo: "/clients/sports.png" },
   { name: "예금보험공사", sector: "공공" },
-  { name: "국제방송교류재단", sector: "공공" },
+  { name: "국제방송교류재단", sector: "공공", logo: "/clients/arirang.png" },
   { name: "한국의료기기안전정보원", sector: "공공" },
   { name: "공항철도", sector: "공공" },
-  { name: "주식회사 SR", sector: "공공" },
+  { name: "주식회사 SR", sector: "공공", logo: "/clients/srail.png" },
   { name: "경동도시가스", sector: "에너지" },
   { name: "라이나생명보험", sector: "금융" },
   { name: "에이스아메리칸화재해상보험", sector: "금융" },
   { name: "OSB저축은행", sector: "금융" },
   { name: "JB우리캐피탈", sector: "금융" },
   { name: "교통은행", sector: "금융" },
-  { name: "다우기술", sector: "IT" },
-  { name: "현대HCN", sector: "IT" },
+  { name: "다우기술", sector: "IT", logo: "/clients/daou.png" },
+  { name: "현대HCN", sector: "IT", logo: "/clients/hcn.png" },
   { name: "아시아나IDT", sector: "IT" },
-  { name: "뉴빌리티", sector: "IT" },
+  { name: "뉴빌리티", sector: "IT", logo: "/clients/neubility.png" },
   { name: "전남대학교병원", sector: "의료" },
   { name: "화순전남대병원", sector: "의료" },
-  { name: "충북대학교병원", sector: "의료" },
+  { name: "충북대학교병원", sector: "의료", logo: "/clients/cbnuh.png" },
   { name: "대구동산병원", sector: "의료" },
   { name: "초록우산어린이재단", sector: "비영리" },
 ];
@@ -198,17 +198,17 @@ export default function AboutPage() {
               className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 transition-colors hover:border-brand/40"
             >
               {c.logo ? (
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-slate-100 bg-white">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-slate-100 bg-white">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={c.logo}
                     alt={`${c.name} 로고`}
-                    className="h-full w-full object-contain p-0.5"
+                    className="h-full w-full object-contain p-1"
                   />
                 </span>
               ) : (
                 <span
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
+                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg text-base font-bold ${
                     SECTOR_COLOR[c.sector] ?? "bg-mist-100 text-brand-deep"
                   }`}
                 >
