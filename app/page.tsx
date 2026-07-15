@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllPosts, CATEGORIES } from "@/lib/posts";
 import NodeNetwork from "@/components/NodeNetwork";
+import HeroStats from "@/components/HeroStats";
 
 const TOPICS = [
   {
@@ -98,20 +99,7 @@ export default async function Home() {
             </Link>
           </div>
 
-          <dl className="mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
-            {[
-              { value: "약 30년", label: "정보보호 분야 경력" },
-              { value: "9종", label: "보유 자격 (CISSP·ISO 등)" },
-              { value: "40+", label: "수행 프로젝트" },
-            ].map((s) => (
-              <div key={s.label} className="border-l-2 border-gold/70 pl-4">
-                <dt className="text-sm text-slate-400">{s.label}</dt>
-                <dd className="mt-1 text-2xl font-bold text-white">
-                  {s.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <HeroStats />
         </div>
       </section>
 
