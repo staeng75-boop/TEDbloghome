@@ -216,7 +216,7 @@ export default function AboutPage() {
                 </span>
               )}
               <div className="min-w-0 text-left">
-                <p className="break-keep text-sm font-semibold leading-snug text-slate-800">
+                <p className="text-sm font-semibold leading-snug text-slate-800">
                   {c.name}
                 </p>
                 <p className="text-xs text-slate-400">{c.sector}</p>
