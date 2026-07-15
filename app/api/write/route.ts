@@ -180,6 +180,13 @@ export async function POST(req: Request) {
 
   revalidateTag("github-content");
 
+  const secret = process.env.REVALIDATE_SECRET;
+  if (secret) {
+    fetch(
+      `https://tedbloghome.vercel.app/api/revalidate?secret=${secret}`
+    ).catch(() => {});
+  }
+
   return NextResponse.json({
     ok: true,
     message: "저장되었습니다. 사이트에 바로 반영됩니다.",
