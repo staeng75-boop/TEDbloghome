@@ -172,8 +172,8 @@ export default function HiddenWrite({
         >
           <p className="text-sm font-semibold text-slate-900">새 글 등록</p>
           <p className="mt-1 text-xs text-slate-500">
-            등록하면 저장소에 커밋되고 1~2분 후 사이트에 반영됩니다.
-            내용은 마크다운 문법을 지원합니다.
+            등록하면 사이트에 바로 반영됩니다. 내용은 마크다운 문법을
+            지원합니다.
           </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>

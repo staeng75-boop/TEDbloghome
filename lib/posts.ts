@@ -1,7 +1,6 @@
-import matter from "gray-matter";
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
-import { listMarkdownFiles, getMarkdownFile } from "@/lib/github";
+import { supabaseAdmin, type EntryRow } from "@/lib/supabase";
 
 export type PostMeta = {
   slug: string;
@@ -20,41 +19,53 @@ export const CATEGORIES: Record<string, string> = {
   insight: "보안 인사이트",
 };
 
+function toMeta(row: EntryRow): PostMeta {
+  return {
+    slug: row.slug,
+    title: row.title,
+    date: row.date,
+    category: row.category,
+    categoryLabel: CATEGORIES[row.category] ?? "보안 인사이트",
+    excerpt: row.excerpt ?? "",
+  };
+}
+
 export async function getAllPosts(): Promise<PostMeta[]> {
-  const files = await listMarkdownFiles("content/posts");
-  return files
-    .map((file) => {
-      const slug = file.name.replace(/\.md$/, "");
-      const { data } = matter(file.text);
-      return {
-        slug,
-        title: data.title ?? slug,
-        date: data.date ?? "",
-        category: data.category ?? "insight",
-        categoryLabel: CATEGORIES[data.category] ?? "보안 인사이트",
-        excerpt: data.excerpt ?? "",
-      };
-    })
-    .sort((a, b) => (a.date < b.date ? 1 : -1));
+  const { data, error } = await supabaseAdmin()
+    .from("entries")
+    .select("*")
+    .eq("type", "post")
+    .order("date", { ascending: false })
+    .order("created_at", { ascending: false });
+  if (error || !data) return [];
+  return (data as EntryRow[]).map(toMeta);
 }
 
 export async function getPostsByCategory(
   category: string
 ): Promise<PostMeta[]> {
-  return (await getAllPosts()).filter((p) => p.category === category);
+  const { data, error } = await supabaseAdmin()
+    .from("entries")
+    .select("*")
+    .eq("type", "post")
+    .eq("category", category)
+    .order("date", { ascending: false })
+    .order("created_at", { ascending: false });
+  if (error || !data) return [];
+  return (data as EntryRow[]).map(toMeta);
 }
 
 export async function getPost(slug: string): Promise<Post | null> {
-  const text = await getMarkdownFile("content/posts", slug);
-  if (text === null) return null;
-  const { data, content } = matter(text);
+  const { data, error } = await supabaseAdmin()
+    .from("entries")
+    .select("*")
+    .eq("type", "post")
+    .eq("slug", slug)
+    .maybeSingle();
+  if (error || !data) return null;
+  const row = data as EntryRow;
   return {
-    slug,
-    title: data.title ?? slug,
-    date: data.date ?? "",
-    category: data.category ?? "insight",
-    categoryLabel: CATEGORIES[data.category] ?? "보안 인사이트",
-    excerpt: data.excerpt ?? "",
-    html: DOMPurify.sanitize(marked.parse(content) as string),
+    ...toMeta(row),
+    html: DOMPurify.sanitize(marked.parse(row.content) as string),
   };
 }

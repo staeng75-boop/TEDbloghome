@@ -53,7 +53,7 @@ const TOPICS = [
   },
 ];
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const recentPosts = (await getAllPosts()).slice(0, 6);

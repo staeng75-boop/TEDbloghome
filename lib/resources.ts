@@ -1,7 +1,6 @@
-import matter from "gray-matter";
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
-import { listMarkdownFiles } from "@/lib/github";
+import { supabaseAdmin, type EntryRow } from "@/lib/supabase";
 
 export const RESOURCE_CATEGORIES: Record<string, string> = {
   ismsp: "ISMS-P",
@@ -21,18 +20,18 @@ export type ResourceItem = {
 };
 
 export async function getAllResources(): Promise<ResourceItem[]> {
-  const files = await listMarkdownFiles("content/resources");
-  return files
-    .map((file) => {
-      const slug = file.name.replace(/\.md$/, "");
-      const { data, content } = matter(file.text);
-      return {
-        slug,
-        title: data.title ?? slug,
-        date: data.date ?? "",
-        category: RESOURCE_CATEGORIES[data.category] ? data.category : "etc",
-        html: DOMPurify.sanitize(marked.parse(content) as string),
-      };
-    })
-    .sort((a, b) => (a.date < b.date ? 1 : -1));
+  const { data, error } = await supabaseAdmin()
+    .from("entries")
+    .select("*")
+    .eq("type", "resource")
+    .order("date", { ascending: false })
+    .order("created_at", { ascending: false });
+  if (error || !data) return [];
+  return (data as EntryRow[]).map((row) => ({
+    slug: row.slug,
+    title: row.title,
+    date: row.date,
+    category: RESOURCE_CATEGORIES[row.category] ? row.category : "etc",
+    html: DOMPurify.sanitize(marked.parse(row.content) as string),
+  }));
 }

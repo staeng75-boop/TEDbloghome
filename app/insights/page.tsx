@@ -3,7 +3,7 @@ import BoardPage from "@/components/BoardPage";
 import { getPostsByCategory } from "@/lib/posts";
 
 export const metadata: Metadata = { title: "보안 인사이트" };
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function InsightsPage() {
   return (

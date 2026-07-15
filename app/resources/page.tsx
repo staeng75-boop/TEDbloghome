@@ -3,7 +3,7 @@ import ResourceVault from "@/components/ResourceVault";
 import { getAllResources, RESOURCE_CATEGORIES } from "@/lib/resources";
 
 export const metadata: Metadata = { title: "자료실" };
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function ResourcesPage() {
   const items = await getAllResources();
