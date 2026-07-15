@@ -109,8 +109,10 @@ export async function POST(req: Request) {
       );
     }
 
-    const safeFileName = fileName.replace(/[^\w.\-가-힣]/g, "_");
-    const filePath = `${slug}-${safeFileName}`;
+    // Supabase Storage 키는 한글 등 비ASCII 문자를 허용하지 않으므로
+    // 저장 이름은 슬러그+확장자로만 만들고, 원래 파일명은 다운로드
+    // 링크의 ?download= 파라미터로 보존한다.
+    const filePath = `${slug}.${ext}`;
     const { error: uploadError } = await supabase.storage
       .from("files")
       .upload(filePath, Buffer.from(fileBase64, "base64"), {
@@ -128,7 +130,7 @@ export async function POST(req: Request) {
     const fileUrl = pub.publicUrl;
     bodyContent = IMAGE_EXT.has(ext)
       ? `![](${fileUrl})\n\n${bodyContent}`
-      : `📎 [${fileName} 다운로드](${fileUrl})\n\n${bodyContent}`;
+      : `📎 [${fileName} 다운로드](${fileUrl}?download=${encodeURIComponent(fileName)})\n\n${bodyContent}`;
   }
 
   const excerpt = bodyContent
