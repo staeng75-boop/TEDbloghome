@@ -1,5 +1,5 @@
 import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from "@/lib/sanitize";
 import { supabaseAdmin, type EntryRow } from "@/lib/supabase";
 
 export const RESOURCE_CATEGORIES: Record<string, string> = {
@@ -32,6 +32,6 @@ export async function getAllResources(): Promise<ResourceItem[]> {
     title: row.title,
     date: row.date,
     category: RESOURCE_CATEGORIES[row.category] ? row.category : "etc",
-    html: DOMPurify.sanitize(marked.parse(row.content) as string),
+    html: sanitize(marked.parse(row.content) as string),
   }));
 }
