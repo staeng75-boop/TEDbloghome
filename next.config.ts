@@ -19,7 +19,7 @@ const securityHeaders = [
       "connect-src 'self'",
       "frame-ancestors 'none'",
       "base-uri 'self'",
-      "form-action 'self' mailto: https://formsubmit.co",
+      "form-action 'self'",
     ].join("; "),
   },
 ];
